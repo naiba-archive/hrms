@@ -4,10 +4,10 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// User ...
+// User 用户表
 type User struct {
 	gorm.Model
-	Phone    string
-	Username string
-	Password string
+	Phone    string // 手机号
+	Username string // 用户名
+	Password string // 密码
 }
