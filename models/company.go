@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// Company ...
+// Company 公司表
 type Company struct {
 	gorm.Model
 	Brand    string // 公司名
