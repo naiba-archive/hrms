@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"github.com/jinzhu/gorm"
 	"github.com/shopspring/decimal"
 )
@@ -20,4 +22,5 @@ type Bill struct {
 	HouseID    uint            // 房间
 	SalesmanID uint            // 业务员
 	Amount     decimal.Decimal // 收款金额
+	PaymentAt  time.Time       // 付款时间
 }
