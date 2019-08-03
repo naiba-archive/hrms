@@ -14,4 +14,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('/register','LoginController@register');
+/**
+ * Dingo 在 Header 中控制 API 版本
+ *  Accept: application/vnd.YOUR_SUBTYPE.v1+json
+ */
+$api = app('Dingo\Api\Routing\Router');
+$api->version('v1', function ($api) {
+    $api->post('register', 'App\Http\Controllers\LoginController@register');
+});
