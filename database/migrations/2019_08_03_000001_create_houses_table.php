@@ -15,6 +15,7 @@ class CreateHousesTable extends Migration
     {
         Schema::create('houses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('company_id')->comment("公司ID");
             $table->bigInteger('parent_id')->nullable(true)->comment("父房屋ID");
             $table->string("address")->comment("详细地址");
             $table->string("note")->comment("备注");

@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('house_id')->comment('绑定房间');
+            $table->string('phone')->comment("手机号");
             $table->string('username')->comment("用户名");
             $table->string('password')->comment("密码");
             $table->timestamps();
