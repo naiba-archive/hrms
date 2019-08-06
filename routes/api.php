@@ -29,4 +29,11 @@ $api->version('v1', function ($api) {
         $api->post('refresh', 'App\Http\Controllers\AuthController@refresh');
         $api->post('me', ['as' => 'me', 'middleware' => 'auth:api', 'uses' => 'App\Http\Controllers\AuthController@me']);
     });
+
+    $api->group([
+        'middleware' => 'api:auth',
+        'prefix' => 'company'
+    ], function ($api) {
+        $api->post('/', 'App\Http\Controllers\CompanyController@add');
+    });
 });
