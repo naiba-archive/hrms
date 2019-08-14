@@ -35,5 +35,41 @@ $api->version('v1', function ($api) {
         'prefix' => 'company'
     ], function ($api) {
         $api->post('/', 'App\Http\Controllers\CompanyController@add');
+        $api->get('query', 'App\Http\Controllers\CompanyController@query');
+        $api->post('update', 'App\Http\Controllers\CompanyController@update');
+        $api->post('delete', 'App\Http\Controllers\CompanyController@delete');
+    });
+
+    $api->group([
+        'middleware' => 'api:auth',
+        'prefix' => 'house'
+    ], function ($api) {
+        $api->post('/', 'App\Http\Controllers\HouseController@add');
+        $api->get('query', 'App\Http\Controllers\HouseController@query');
+        $api->get('queryhouse', 'App\Http\Controllers\HouseController@queryhouse');
+        $api->post('update', 'App\Http\Controllers\HouseController@update');
+        $api->post('delete', 'App\Http\Controllers\HouseController@delete');
+    });
+
+    $api->group([
+        'middleware' => 'api:auth',
+        'prefix' => 'contract'
+    ], function ($api) {
+        $api->post('/', 'App\Http\Controllers\ContractController@add');
+        $api->get('query', 'App\Http\Controllers\ContractController@query');
+        $api->get('querycontract', 'App\Http\Controllers\HouseController@querycontract');
+        $api->post('update', 'App\Http\Controllers\ContractController@update');
+        $api->post('delete', 'App\Http\Controllers\ContractController@delete');
+    });
+
+    $api->group([
+        'middleware' => 'api:auth',
+        'prefix' => 'bill'
+    ], function ($api) {
+        $api->post('/', 'App\Http\Controllers\BillController@add');
+        $api->get('query', 'App\Http\Controllers\BillController@query');
+        $api->get('querybill', 'App\Http\Controllers\HouseController@querybill');
+        $api->post('update', 'App\Http\Controllers\BillController@update');
+        $api->post('delete', 'App\Http\Controllers\BillController@delete');
     });
 });
