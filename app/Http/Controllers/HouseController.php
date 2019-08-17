@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use app\Models\House;
+use App\Http\Controllers\Controller;
+use Illuminate\Validation\Validator;
+use App\Models\House;
 
 class HouseController extends Controller
 {
@@ -17,14 +19,17 @@ class HouseController extends Controller
             'landlord_contact' => 'required|max:20|min:2',
         ]);
 
-        $house = new App\Models\House;
-        $house->company_id = $validatedData['company_id'];
-        $house->parent_id = $validatedData['parent_id'];
+        $house = new \App\Models\House;
+        $house->company_id = $req->company_id;
+        $house->parent_id = $req->parent_id;
         $house->address = $validatedData['address'];
         $house->note = $validatedData['note'];
         $house->landlord = $validatedData['landlord'];
         $house->landlord_contact = $validatedData['landlord_contact'];
+        $house->created_at = date("Y-m-d H:i:s");
+        $house->updated_at = date("Y-m-d H:i:s");
         $house->save();
+        return $house;
     }
 
     public function update(Request $req)
@@ -35,14 +40,16 @@ class HouseController extends Controller
             'landlord' => 'required|max:20|min:2',
             'landlord_contact' => 'required|max:20|min:2',
         ]);
-        $house = House::find($validatedData['id']);
-        $house->company_id = $validatedData['company_id'];
-        $house->parent_id = $validatedData['parent_id'];
+        $house = House::find($req->id);
+        $house->company_id = $req->company_id;
+        $house->parent_id = $req->parent_id;
         $house->address = $validatedData['address'];
         $house->note = $validatedData['note'];
         $house->landlord = $validatedData['landlord'];
         $house->landlord_contact = $validatedData['landlord_contact'];
+        $house->updated_at = date("Y-m-d H:i:s");
         $house->save();
+        return $house;
     }
 
     public function query(Request $req)

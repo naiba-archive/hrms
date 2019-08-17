@@ -31,7 +31,7 @@ $api->version('v1', function ($api) {
     });
 
     $api->group([
-        'middleware' => 'api:auth',
+        'middleware' => 'auth:api',
         'prefix' => 'company'
     ], function ($api) {
         $api->post('/', 'App\Http\Controllers\CompanyController@add');
@@ -41,7 +41,7 @@ $api->version('v1', function ($api) {
     });
 
     $api->group([
-        'middleware' => 'api:auth',
+        'middleware' => 'auth:api',
         'prefix' => 'house'
     ], function ($api) {
         $api->post('/', 'App\Http\Controllers\HouseController@add');
@@ -52,7 +52,7 @@ $api->version('v1', function ($api) {
     });
 
     $api->group([
-        'middleware' => 'api:auth',
+        'middleware' => 'auth:api',
         'prefix' => 'contract'
     ], function ($api) {
         $api->post('/', 'App\Http\Controllers\ContractController@add');
@@ -63,12 +63,12 @@ $api->version('v1', function ($api) {
     });
 
     $api->group([
-        'middleware' => 'api:auth',
+        'middleware' => 'auth:api',
         'prefix' => 'bill'
     ], function ($api) {
         $api->post('/', 'App\Http\Controllers\BillController@add');
         $api->get('query', 'App\Http\Controllers\BillController@query');
-        $api->get('querybill', 'App\Http\Controllers\HouseController@querybill');
+        $api->get('querybill', 'App\Http\Controllers\BillController@querybill');
         $api->patch('update', 'App\Http\Controllers\BillController@update');
         $api->delete('delete', 'App\Http\Controllers\BillController@delete');
     });

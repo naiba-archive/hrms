@@ -4,46 +4,44 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use app\Models\Contract;
+use App\Http\Controllers\Controller;
+use Illuminate\Validation\Validator;
+use App\Models\Contract;
 
 class ContractController extends Controller
 {
     public function add(Request $req)
     {
         $validatedData = $req->validate([
-            'establishment' => 'required|dateTime',
-            'deadline' => 'required|dateTime',
-            'last_pay' => 'required|dateTime',
-            'last_pay' => 'required|dateTime',
-            'pay_duration' => 'required|dateTime',
+            'establishment' => 'required|date_format:"Y-m-d H:i:s',
+            'deadline' => 'required|date_format:"Y-m-d H:i:s',
+            'pay_duration' => 'required|numeric',
         ]);
 
-        $contract = new App\Models\Contract;
-        $contract->house_id = $validatedData['house_id'];
+        $contract = new \App\Models\Contract;
+        $contract->house_id = $req->house_id;
         $contract->establishment = $validatedData['establishment'];
         $contract->deadline = $validatedData['deadline'];
-        $contract->last_pay = $validatedData['last_pay'];
+        $contract->last_pay = $req->last_pay;
         $contract->pay_duration = $validatedData['pay_duration'];
-        $contract->type = $validatedData['type'];
+        $contract->type = $req->type;
         $contract->save();
     }
 
     public function update(Request $req)
     {
         $validatedData = $req->validate([
-            'establishment' => 'required|dateTime',
-            'deadline' => 'required|dateTime',
-            'last_pay' => 'required|dateTime',
-            'last_pay' => 'required|dateTime',
-            'pay_duration' => 'required|dateTime',
+            'establishment' => 'required|date_format:"Y-m-d H:i:s',
+            'deadline' => 'required|date_format:"Y-m-d H:i:s',
+            'pay_duration' => 'required|numeric',
         ]);
         $contract = Contract::find($validatedData['id']);
-        $contract->house_id = $validatedData['house_id'];
+        $contract->house_id = $req->house_id;
         $contract->establishment = $validatedData['establishment'];
         $contract->deadline = $validatedData['deadline'];
-        $contract->last_pay = $validatedData['last_pay'];
+        $contract->last_pay = $req->last_pay;
         $contract->pay_duration = $validatedData['pay_duration'];
-        $contract->type = $validatedData['type'];
+        $contract->type = $req->type;
         $contract->save();
         return $contract;
     }
@@ -63,27 +61,24 @@ class ContractController extends Controller
     public function queryContract(Request $req){
         $data = DB::table('contracts')->select('*');
 
-        if ($_REQUEST['house_id']) {
+        if (array_key_exists('house_id',$_REQUEST) && $_REQUEST['house_id']) {
             $data =  $data->where('house_id',$req->house_id);
         }
 
-        if ($_REQUEST['establishment']) {
+        if (array_key_exists('establishment',$_REQUEST) && $_REQUEST['establishment']) {
             $data =  $data->where('establishment', 'like', '%' . $req->establishment . '%');
         }
 
-        if ($_REQUEST['deadline']) {
+        if (array_key_exists('deadline',$_REQUEST) && $_REQUEST['deadline']) {
             $data =  $data->where('deadline', 'like', '%' . $req->deadline . '%');
         }
 
-        if ($_REQUEST['last_pay']) {
+        if (array_key_exists('last_pay',$_REQUEST) && $_REQUEST['last_pay']) {
             $data =  $data->where('last_pay', 'like', '%' . $req->last_pay . '%');
         }
 
-        if ($_REQUEST['pay_duration']) {
-            $data =  $data->where('pay_duration', 'like', '%' . $req->pay_duration . '%');
-        }
 
-        if ($_REQUEST['type']) {
+        if (array_key_exists('type',$_REQUEST) && $_REQUEST['type']) {
             $data =  $data->where('type', $req->type);
         }
 
