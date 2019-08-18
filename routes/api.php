@@ -52,12 +52,12 @@ $api->version('v1', function ($api) {
     });
 
     $api->group([
-        'middleware' => 'auth:api',
+        'middleware' => 'api',
         'prefix' => 'contract'
     ], function ($api) {
         $api->post('/', 'App\Http\Controllers\ContractController@add');
         $api->get('query', 'App\Http\Controllers\ContractController@query');
-        $api->get('querycontract', 'App\Http\Controllers\HouseController@querycontract');
+        $api->get('querycontract', 'App\Http\Controllers\ContractController@querycontract');
         $api->patch('update', 'App\Http\Controllers\ContractController@update');
         $api->delete('delete', 'App\Http\Controllers\ContractController@delete');
     });

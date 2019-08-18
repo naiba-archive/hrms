@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\Contract;
 
 class ContractController extends Controller
@@ -13,33 +14,31 @@ class ContractController extends Controller
     public function add(Request $req)
     {
         $validatedData = $req->validate([
-            'establishment' => 'required|date_format:"Y-m-d H:i:s',
             'deadline' => 'required|date_format:"Y-m-d H:i:s',
-            'pay_duration' => 'required|numeric',
+            'pay_duration' => 'required|date_format:"Y-m-d H:i:s',
         ]);
 
         $contract = new \App\Models\Contract;
         $contract->house_id = $req->house_id;
-        $contract->establishment = $validatedData['establishment'];
+        $contract->establishment = date("Y-m-d H:i:s");
         $contract->deadline = $validatedData['deadline'];
-        $contract->last_pay = $req->last_pay;
+        $contract->last_pay = date("Y-m-d H:i:s");
         $contract->pay_duration = $validatedData['pay_duration'];
         $contract->type = $req->type;
         $contract->save();
+        return $contract;
     }
 
     public function update(Request $req)
     {
         $validatedData = $req->validate([
-            'establishment' => 'required|date_format:"Y-m-d H:i:s',
             'deadline' => 'required|date_format:"Y-m-d H:i:s',
-            'pay_duration' => 'required|numeric',
+            'pay_duration' => 'required|date_format:"Y-m-d H:i:s',
         ]);
-        $contract = Contract::find($validatedData['id']);
+        $contract = Contract::find($req->id);
         $contract->house_id = $req->house_id;
-        $contract->establishment = $validatedData['establishment'];
         $contract->deadline = $validatedData['deadline'];
-        $contract->last_pay = $req->last_pay;
+        $contract->last_pay = date("Y-m-d H:i:s");
         $contract->pay_duration = $validatedData['pay_duration'];
         $contract->type = $req->type;
         $contract->save();
