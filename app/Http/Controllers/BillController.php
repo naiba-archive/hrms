@@ -43,20 +43,19 @@ class BillController extends Controller
         return $bill;
     }
 
-    public function query(Request $req)
-    {
-        $bill = Bill::find($req->id);
-        return $bill;
-    }
-
     public function delete(Request $req)
     {
         $bill = Bill::find($req->id);
         $bill->delete();
     }
 
-    public function queryBill(Request $req){
+    public function query(Request $req){
         $data = DB::table('bills')->select('*');
+
+        if (array_key_exists('id',$_REQUEST) && $_REQUEST['id']) {
+            $bill = Bill::find($req->id);
+            return $bill;
+        }
 
         if (array_key_exists('house_id',$_REQUEST) && $_REQUEST['house_id']) {
             $data =  $data->where('house_id',$req->house_id);

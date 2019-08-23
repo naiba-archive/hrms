@@ -52,42 +52,41 @@ class HouseController extends Controller
         return $house;
     }
 
-    public function query(Request $req)
-    {
-        $house = House::find($req->id);
-        return $house;
-    }
-
     public function delete(Request $req)
     {
         $house = House::find($req->id);
         $house->delete();
     }
 
-    public function queryHouse(Request $req){
+    public function query(Request $req){
         $data = DB::table('houses')->select('*');
 
-        if ($_REQUEST['company_id']) {
+        if (array_key_exists('id',$_REQUEST) && $_REQUEST['id']) {
+            $house = House::find($req->id);
+            return $house;
+        }
+
+        if (array_key_exists('company_id',$_REQUEST) && $_REQUEST['company_id']) {
             $data =  $data->where('company_id',$req->company_id);
         }
 
-        if ($_REQUEST['parent_id']) {
+        if (array_key_exists('parent_id',$_REQUEST) && $_REQUEST['parent_id']) {
             $data =  $data->where('parent_id',$req->parent_id);
         }
 
-        if ($_REQUEST['address']) {
+        if (array_key_exists('address',$_REQUEST) && $_REQUEST['address']) {
             $data =  $data->where('address',$req->address);
         }
 
-        if ($_REQUEST['note']) {
+        if (array_key_exists('note',$_REQUEST) && $_REQUEST['note']) {
             $data =  $data->where('note',$req->note);
         }
 
-        if ($_REQUEST['landlord']) {
+        if (array_key_exists('landlord',$_REQUEST) && $_REQUEST['landlord']) {
             $data =  $data->where('landlord',$req->landlord);
         }
 
-        if ($_REQUEST['landlord_contact']) {
+        if (array_key_exists('landlord_contact',$_REQUEST) && $_REQUEST['landlord_contact']) {
             $data =  $data->where('landlord_contact', $req->landlord_contact);
         }
 

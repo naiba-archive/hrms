@@ -34,7 +34,7 @@ $api->version('v1', function ($api) {
         'middleware' => 'auth:api',
         'prefix' => 'company'
     ], function ($api) {
-        $api->post('/', 'App\Http\Controllers\CompanyController@add');
+        $api->post('', 'App\Http\Controllers\CompanyController@add');
         $api->get('', 'App\Http\Controllers\CompanyController@query');
         $api->patch('', 'App\Http\Controllers\CompanyController@update');
         $api->delete('', 'App\Http\Controllers\CompanyController@delete');
@@ -44,9 +44,8 @@ $api->version('v1', function ($api) {
         'middleware' => 'auth:api',
         'prefix' => 'house'
     ], function ($api) {
-        $api->post('/', 'App\Http\Controllers\HouseController@add');
+        $api->post('', 'App\Http\Controllers\HouseController@add');
         $api->get('', 'App\Http\Controllers\HouseController@query');
-        $api->get('/', 'App\Http\Controllers\HouseController@queryhouse');
         $api->patch('', 'App\Http\Controllers\HouseController@update');
         $api->delete('', 'App\Http\Controllers\HouseController@delete');
     });
@@ -55,9 +54,8 @@ $api->version('v1', function ($api) {
         'middleware' => 'api',
         'prefix' => 'contract'
     ], function ($api) {
-        $api->post('/', 'App\Http\Controllers\ContractController@add');
+        $api->post('', 'App\Http\Controllers\ContractController@add');
         $api->get('', 'ContractController@query');
-        $api->get('/', 'App\Http\Controllers\ContractController@querycontract');
         $api->patch('', 'App\Http\Controllers\ContractController@update');
         $api->delete('', 'App\Http\Controllers\ContractController@delete');
     });
@@ -66,9 +64,8 @@ $api->version('v1', function ($api) {
         'middleware' => 'auth:api',
         'prefix' => 'bill'
     ], function ($api) {
-        $api->post('/', 'App\Http\Controllers\BillController@add');
+        $api->post('', 'App\Http\Controllers\BillController@add');
         $api->get('', 'App\Http\Controllers\BillController@query');
-        $api->get('/', 'App\Http\Controllers\BillController@querybill');
         $api->patch('', 'App\Http\Controllers\BillController@update');
         $api->delete('', 'App\Http\Controllers\BillController@delete');
     });

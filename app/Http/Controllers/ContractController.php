@@ -45,20 +45,19 @@ class ContractController extends Controller
         return $contract;
     }
 
-    public function query(Request $req)
-    {
-        $contract = Contract::find($req->id);
-        return $contract;
-    }
-
     public function delete(Request $req)
     {
         $contract = Contract::find($req->id);
         $contract->delete();
     }
 
-    public function queryContract(Request $req){
+    public function query(Request $req){
         $data = DB::table('contracts')->select('*');
+
+        if (array_key_exists('id',$_REQUEST) && $_REQUEST['id']) {
+            $contract = Contract::find($req->id);
+            return $contract;
+        }
 
         if (array_key_exists('house_id',$_REQUEST) && $_REQUEST['house_id']) {
             $data =  $data->where('house_id',$req->house_id);
